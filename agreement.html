@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>거래 약정서 생성기 — 중고거래·용역 무료 | MoneyZip</title>
+<meta name="description" content="중고거래·용역 거래 약정서를 무료로 자동 생성하세요. 이름, 금액, 조건 입력 후 PDF로 저장. 분쟁 예방을 위한 기록 보존 도구. MoneyZip 제공.">
+<meta name="keywords" content="중고거래 약정서, 용역 계약서, 거래 약정서 양식, 무료 계약서, 당근마켓 약정서">
+<meta property="og:title" content="거래 약정서 생성기 — MoneyZip">
+<meta property="og:description" content="중고거래·용역 약정서를 3분 만에 무료로 만들고 PDF 저장하세요.">
+<meta property="og:url" content="https://moneyzip.co.kr/agreement">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Kakao AdFit -->
+<script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+<style>
+:root {
+  --navy:#0d1b2a; --navy2:#1b2d42;
+  --gold:#b8963e; --gold2:#d4af5a;
+  --bg:#faf9f6; --bg2:#f2ede4;
+  --line:#e4ddd0; --text:#1a1a1a; --muted:#8a8070;
+  --white:#fff;
+  --radius:8px;
+  --blue:#1e4fd8;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── HEADER ── */
+header{background:var(--navy);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:200;}
+.hd{max-width:1200px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.5px;}
+.logo span{color:var(--gold2);}
+.logo-dot{display:inline-block;width:6px;height:6px;background:var(--gold);border-radius:50%;margin-left:2px;vertical-align:middle;}
+.hd-back{font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
+.hd-back:hover{color:var(--gold2);}
+.hd-badge{font-size:11px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.15);padding:3px 10px;border-radius:20px;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:48px 24px 40px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-40px;width:260px;height:260px;border-radius:50%;background:rgba(184,150,62,.08);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-80px;left:30%;width:180px;height:180px;border-radius:50%;background:rgba(184,150,62,.05);pointer-events:none;}
+.hero-inner{max-width:760px;margin:0 auto;position:relative;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(184,150,62,.15);color:var(--gold2);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,34px);font-weight:700;color:var(--white);line-height:1.35;margin-bottom:12px;}
+.hero h1 em{font-style:italic;color:var(--gold2);}
+.hero p{color:rgba(255,255,255,.65);font-size:14px;line-height:1.75;max-width:500px;margin-bottom:24px;}
+.hero p strong{color:rgba(255,255,255,.85);}
+.hero-stats{display:flex;gap:0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;width:fit-content;}
+.hstat{padding:10px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+.hstat:last-child{border-right:none;}
+.hstat-num{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold2);display:block;}
+.hstat-label{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.5px;display:block;margin-top:1px;}
+
+/* ── TAB NAV ── */
+.tab-nav{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:58px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.tab-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;}
+.tab-btn{flex:1;max-width:220px;padding:14px 16px;font-size:14px;font-weight:500;color:var(--muted);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;}
+.tab-btn.active{color:var(--navy);border-bottom-color:var(--gold);font-weight:700;}
+.tab-btn:hover:not(.active){color:var(--text);background:var(--bg);}
+
+/* ── AD TOP ── */
+.ad-top{background:var(--bg2);border-bottom:1px solid var(--line);padding:8px 0;text-align:center;}
+.ad-top-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;}
+.adlbl{font-size:10px;letter-spacing:2px;color:var(--muted);}
+
+/* ── MAIN ── */
+.main-wrap{max-width:900px;margin:0 auto;padding:32px 24px 80px;}
+.pane{display:none;}
+.pane.active{display:block;}
+
+/* ── NOTICE ── */
+.notice{background:#fffbf0;border:1px solid #f0d87a;border-left:4px solid var(--gold);border-radius:var(--radius);padding:12px 16px;font-size:12px;color:#6b5200;line-height:1.6;margin-bottom:24px;}
+
+/* ── CARD ── */
+.card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:28px;margin-bottom:20px;}
+.card-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.card-title::before{content:'';display:block;width:3px;height:16px;background:var(--gold);border-radius:2px;}
+
+/* ── FORM ── */
+.fg{margin-bottom:14px;}
+.fg:last-child{margin-bottom:0;}
+.fl{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:.3px;}
+.fl .req{color:#e55b00;margin-left:2px;}
+.fi{width:100%;padding:10px 14px;font-size:14px;font-family:'Noto Sans KR',sans-serif;border:1.5px solid var(--line);border-radius:var(--radius);background:var(--bg);color:var(--text);transition:border-color .2s,box-shadow .2s;}
+.fi:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,150,62,.1);}
+textarea.fi{resize:vertical;min-height:80px;}
+select.fi{cursor:pointer;}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.fg-row{grid-template-columns:1fr;}}
+
+/* ── GENERATE BTN ── */
+.gen-btn{width:100%;padding:14px;font-size:15px;font-weight:700;color:var(--navy);background:var(--gold);border:none;border-radius:var(--radius);cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:.3px;transition:all .2s;margin-top:8px;}
+.gen-btn:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,150,62,.3);}
+.reset-btn{width:100%;padding:10px;font-size:13px;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;font-family:'Noto Sans KR',sans-serif;margin-top:8px;transition:all .2s;}
+.reset-btn:hover{border-color:var(--muted);color:var(--text);}
+
+/* ── PREVIEW AREA ── */
+.preview-area{display:none;margin-top:32px;}
+.preview-area.show{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.preview-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px;}
+.preview-title{font-size:14px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.preview-label{font-size:11px;background:var(--bg2);color:var(--muted);padding:3px 10px;border-radius:20px;border:1px solid var(--line);}
+.ex-label{font-size:11px;background:#e8f4e8;color:#2a6e2a;padding:3px 10px;border-radius:20px;border:1px solid #b8d4b8;cursor:pointer;}
+.pdf-btn{padding:9px 18px;font-size:13px;font-weight:700;color:var(--white);background:var(--navy);border:none;border-radius:var(--radius);cursor:pointer;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;gap:6px;transition:all .2s;}
+.pdf-btn:hover{background:var(--navy2);}
+
+/* ── DOCUMENT ── */
+.doc-wrap{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:40px;box-shadow:0 4px 24px rgba(0,0,0,.06);}
+.doc-header{text-align:center;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line);}
+.doc-watermark{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;}
+.doc-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.doc-subtitle{font-size:12px;color:var(--muted);}
+.doc-section{margin-bottom:24px;}
+.doc-section-title{font-size:12px;font-weight:700;color:var(--navy);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.doc-table{width:100%;border-collapse:collapse;font-size:13px;}
+.doc-table td{padding:10px 14px;border:1px solid var(--line);line-height:1.6;}
+.doc-table td:first-child{width:28%;font-weight:600;color:var(--navy);background:var(--bg2);}
+.doc-amount{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;text-align:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);}
+.doc-clause p{font-size:13px;line-height:1.8;margin-bottom:8px;color:var(--text);}
+.doc-clause strong{color:var(--navy);}
+.doc-footer{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);}
+.doc-date-line{text-align:center;font-size:13px;color:var(--muted);margin-bottom:24px;}
+.sign-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.sign-box{border:1px solid var(--line);border-radius:var(--radius);padding:18px;}
+.sign-role{font-size:11px;color:var(--muted);margin-bottom:6px;}
+.sign-name{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.sign-info{font-size:12px;color:var(--muted);margin-bottom:16px;}
+.sign-line{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;}
+.doc-notice-box{background:#fffbf0;border:1px solid #f0d87a;border-radius:var(--radius);padding:14px;text-align:center;font-size:11px;color:#6b5200;line-height:1.7;}
+
+/* ── MIDDLE AD ── */
+.ad-mid{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:10px;text-align:center;margin:24px 0;}
+.ad-mid-label{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:6px;}
+
+/* ── SEO 콘텐츠 ── */
+.seo-section{max-width:900px;margin:48px auto 0;padding:0 24px 60px;}
+.seo-section h2{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--gold);}
+.seo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+@media(max-width:640px){.seo-grid{grid-template-columns:1fr;}}
+.seo-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px;}
+.seo-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.seo-card p{font-size:12px;color:#444;line-height:1.7;}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);padding:28px 24px;}
+.foot-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.foot-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold2);}
+.foot-links{display:flex;gap:16px;}
+.foot-links a{font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;}
+.foot-links a:hover{color:var(--gold2);}
+.foot-copy{font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:14px;}
+
+/* ── PRINT ── */
+@media print {
+  header,footer,.tab-nav,.ad-top,.ad-mid,.notice,.gen-btn,.reset-btn,.preview-header,.seo-section,#pane-trade .card,#pane-service .card{display:none!important;}
+  .preview-area{display:block!important;}
+  .doc-wrap{box-shadow:none;border:none;padding:0;}
+  body{background:white;}
+}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .main-wrap{padding:20px 16px 60px;}
+  .card{padding:20px 16px;}
+  .doc-wrap{padding:24px 16px;}
+  .sign-row{grid-template-columns:1fr;}
+  .hstat{padding:8px 14px;}
+  .hero{padding:32px 16px 28px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a href="https://moneyzip.co.kr" class="logo">Money<span>Zip</span><span class="logo-dot"></span></a>
+    <a href="https://moneyzip.co.kr" class="hd-back">← 계산기로 돌아가기</a>
+    <span class="hd-badge">무료 금융 도구</span>
+  </div>
+</header>
+
+<!-- 상단 AdFit -->
+<div class="ad-top">
+  <div class="ad-top-inner">
+    <span class="adlbl">AD</span>
+    <ins class="kakao_ad_area" style="display:none;"
+         data-ad-unit="DAN-706m3ZhHvwcmt78I"
+         data-ad-width="320" data-ad-height="100"></ins>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">📄 거래 약정서 생성기</div>
+    <h1><em>친한 사이일수록</em><br>약정서가 더 필요합니다</h1>
+    <p>중고거래·용역 거래를 카톡 캡처로만 남기셨나요?<br>무료로 약정서를 만들고 PDF로 저장하세요.<br><strong>법적 효력 없는 기록·증거 보존용</strong> 참고 문서입니다.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-num">무료</span><span class="hstat-label">비용 없음</span></div>
+      <div class="hstat"><span class="hstat-num">3분</span><span class="hstat-label">작성 시간</span></div>
+      <div class="hstat"><span class="hstat-num">PDF</span><span class="hstat-label">즉시 저장</span></div>
+      <div class="hstat"><span class="hstat-num">2종</span><span class="hstat-label">약정서 유형</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB -->
+<div class="tab-nav">
+  <div class="tab-inner">
+    <button class="tab-btn active" id="tab-trade" onclick="switchTab('trade')">🛍️ 중고거래 약정서</button>
+    <button class="tab-btn" id="tab-service" onclick="switchTab('service')">🤝 용역 확인서</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- ══ 중고거래 탭 ══ -->
+  <div id="pane-trade" class="pane active">
+
+    <div class="notice">⚠️ 본 문서는 <strong>법적 효력이 없는 참고용 기록 문서</strong>입니다. 법적 효력을 위해서는 공인 전자계약 서비스 또는 공증을 이용하시기 바랍니다.</div>
+
+    <div class="card">
+      <div class="card-title">판매자 정보</div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">이름 <span class="req">*</span></label>
+          <input class="fi" id="t-seller-name" type="text" placeholder="홍길동">
+        </div>
+        <div class="fg">
+          <label class="fl">연락처 <span class="req">*</span></label>
+          <input class="fi" id="t-seller-phone" type="tel" placeholder="010-0000-0000">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">계좌번호 (선택)</label>
+        <input class="fi" id="t-seller-account" type="text" placeholder="카카오뱅크 3333-12-1234567">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">구매자 정보</div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">이름 <span class="req">*</span></label>
+          <input class="fi" id="t-buyer-name" type="text" placeholder="김철수">
+        </div>
+        <div class="fg">
+          <label class="fl">연락처 <span class="req">*</span></label>
+          <input class="fi" id="t-buyer-phone" type="tel" placeholder="010-0000-0000">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">거래 물품 정보</div>
+      <div class="fg">
+        <label class="fl">물품명 <span class="req">*</span></label>
+        <input class="fi" id="t-item" type="text" placeholder="아이폰 15 Pro 256GB 내추럴 티타늄">
+      </div>
+      <div class="fg">
+        <label class="fl">거래 금액 (원) <span class="req">*</span></label>
+        <input class="fi" id="t-price" type="number" placeholder="850000" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+      </div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">거래 날짜 <span class="req">*</span></label>
+          <input class="fi" id="t-date" type="date">
+        </div>
+        <div class="fg">
+          <label class="fl">거래 장소</label>
+          <input class="fi" id="t-place" type="text" placeholder="강남역 11번 출구 앞">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">물품 상태 설명</label>
+        <textarea class="fi" id="t-condition" placeholder="사용감 있음. 액정 우측 하단 미세 스크래치 1개, 배터리 잔량 91%. 정품 충전기·케이블 포함."></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">하자·환불 조건</div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">하자 신고 기한</label>
+          <select class="fi" id="t-defect-period">
+            <option>3일 이내</option>
+            <option>7일 이내</option>
+            <option>당일</option>
+            <option>거래 완료 시 즉시</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">하자 처리 방식</label>
+          <select class="fi" id="t-defect">
+            <option>협의 후 결정</option>
+            <option>전액 환불</option>
+            <option>부분 환불 (협의)</option>
+            <option>환불 불가</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">특이사항 (선택)</label>
+        <textarea class="fi" id="t-extra" placeholder="단순 변심에 의한 환불은 불가. 구매자는 액정 스크래치 및 배터리 상태를 현장에서 직접 확인하고 구매 의사를 확정하였음."></textarea>
+      </div>
+    </div>
+
+    <button class="gen-btn" onclick="generateTrade()">📄 중고거래 약정서 생성하기</button>
+    <button class="reset-btn" onclick="resetForm('trade')">↺ 초기화</button>
+
+    <!-- 중간 AdFit -->
+    <div class="ad-mid">
+      <div class="ad-mid-label">AD</div>
+      <ins class="kakao_ad_area" style="display:none;"
+           data-ad-unit="DAN-dxgq5uQbWEosnnw9"
+           data-ad-width="320" data-ad-height="100"></ins>
+    </div>
+
+    <!-- 생성 결과 -->
+    <div id="preview-trade" class="preview-area">
+      <div class="preview-header">
+        <div class="preview-title">✅ 생성 결과 미리보기 <span class="ex-label">예시 문서</span></div>
+        <button class="pdf-btn" onclick="window.print()">🖨️ PDF 저장 / 인쇄</button>
+      </div>
+      <div class="doc-wrap">
+        <div id="doc-trade"></div>
+      </div>
+    </div>
+
+  </div><!-- /pane-trade -->
+
+  <!-- ══ 용역 탭 ══ -->
+  <div id="pane-service" class="pane">
+
+    <div class="notice">⚠️ 본 문서는 <strong>법적 효력이 없는 참고용 기록 문서</strong>입니다. 법적 효력을 위해서는 공인 전자계약 서비스 또는 공증을 이용하시기 바랍니다.</div>
+
+    <div class="card">
+      <div class="card-title">의뢰인 정보 (甲)</div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">이름 <span class="req">*</span></label>
+          <input class="fi" id="s-client-name" type="text" placeholder="홍길동">
+        </div>
+        <div class="fg">
+          <label class="fl">연락처 <span class="req">*</span></label>
+          <input class="fi" id="s-client-phone" type="tel" placeholder="010-0000-0000">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">수행자 정보 (乙)</div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">이름 <span class="req">*</span></label>
+          <input class="fi" id="s-worker-name" type="text" placeholder="김철수">
+        </div>
+        <div class="fg">
+          <label class="fl">연락처 <span class="req">*</span></label>
+          <input class="fi" id="s-worker-phone" type="tel" placeholder="010-0000-0000">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">계좌번호 (입금받을 계좌)</label>
+        <input class="fi" id="s-worker-account" type="text" placeholder="신한은행 110-000-000000">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">용역 내용</div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">용역 종류</label>
+          <select class="fi" id="s-type">
+            <option>디자인·편집</option>
+            <option>개발·프로그래밍</option>
+            <option>영상·사진</option>
+            <option>번역·통역</option>
+            <option>강의·컨설팅</option>
+            <option>글쓰기·콘텐츠</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">보수 금액 (원) <span class="req">*</span></label>
+          <input class="fi" id="s-fee" type="number" placeholder="500000" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">상세 내용 <span class="req">*</span></label>
+        <textarea class="fi" id="s-detail" style="min-height:100px;" placeholder="로고 디자인 2종 시안 제작. AI 원본 파일 및 PNG 납품. 수정 2회 포함."></textarea>
+      </div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">계약일 <span class="req">*</span></label>
+          <input class="fi" id="s-start-date" type="date">
+        </div>
+        <div class="fg">
+          <label class="fl">납품 기한 <span class="req">*</span></label>
+          <input class="fi" id="s-deadline" type="date">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">계약 조건</div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">선금 비율</label>
+          <select class="fi" id="s-prepay">
+            <option>없음</option>
+            <option>30%</option>
+            <option>50%</option>
+            <option>70%</option>
+            <option>100%</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">무료 수정 횟수</label>
+          <select class="fi" id="s-revision">
+            <option>2회</option>
+            <option>1회</option>
+            <option>3회</option>
+            <option>5회</option>
+            <option>없음</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg-row">
+        <div class="fg">
+          <label class="fl">납품 지연 처리</label>
+          <select class="fi" id="s-delay">
+            <option>협의 후 결정</option>
+            <option>지연 1일당 보수 1% 차감</option>
+            <option>계약 해지 및 선금 반환</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">저작권 귀속</label>
+          <select class="fi" id="s-copyright">
+            <option>대금 완납 후 의뢰인 귀속</option>
+            <option>수행자 보유 (사용 허락)</option>
+            <option>별도 협의</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">특이사항 (선택)</label>
+        <textarea class="fi" id="s-extra" placeholder="SNS 2차 게시 시 크레딧 표기 필요. 경쟁사 유사 제작물 사용 불가."></textarea>
+      </div>
+    </div>
+
+    <button class="gen-btn" onclick="generateService()">📄 용역 확인서 생성하기</button>
+    <button class="reset-btn" onclick="resetForm('service')">↺ 초기화</button>
+
+    <!-- 중간 AdFit -->
+    <div class="ad-mid">
+      <div class="ad-mid-label">AD</div>
+      <ins class="kakao_ad_area" style="display:none;"
+           data-ad-unit="DAN-dxgq5uQbWEosnnw9"
+           data-ad-width="320" data-ad-height="100"></ins>
+    </div>
+
+    <!-- 생성 결과 -->
+    <div id="preview-service" class="preview-area">
+      <div class="preview-header">
+        <div class="preview-title">✅ 생성 결과 미리보기 <span class="ex-label">예시 문서</span></div>
+        <button class="pdf-btn" onclick="window.print()">🖨️ PDF 저장 / 인쇄</button>
+      </div>
+      <div class="doc-wrap">
+        <div id="doc-service"></div>
+      </div>
+    </div>
+
+  </div><!-- /pane-service -->
+
+</div><!-- /main-wrap -->
+
+<!-- SEO 정적 콘텐츠 -->
+<div class="seo-section">
+  <h2>📄 거래 약정서가 필요한 이유</h2>
+  <div class="seo-grid">
+    <div class="seo-card">
+      <h3>🛍️ 중고거래 약정서</h3>
+      <p>당근마켓·번개장터·카카오 중고거래에서 발생하는 분쟁의 대부분은 "그런 말 한 적 없다"는 말다툼에서 시작됩니다. 약정서 한 장이 허위 하자 주장과 환불 분쟁을 예방합니다.</p>
+    </div>
+    <div class="seo-card">
+      <h3>🤝 용역·프리랜서 확인서</h3>
+      <p>디자인, 개발, 영상 등 프리랜서 작업에서 구두 계약만 믿다 미지급·추가 수정 요구 분쟁이 자주 발생합니다. 납품 기한·보수·수정 횟수를 문서로 남겨두세요.</p>
+    </div>
+    <div class="seo-card">
+      <h3>📱 카카오톡 캡처의 한계</h3>
+      <p>카톡 대화는 삭제·조작이 가능해 증거 효력이 약합니다. 약정서는 양 당사자가 서명(또는 동의)한 공식 기록으로 분쟁 시 훨씬 강력한 증거가 됩니다.</p>
+    </div>
+    <div class="seo-card">
+      <h3>⚖️ 법적 효력 vs 기록 보존</h3>
+      <p>본 서비스는 법적 효력이 없는 참고용 기록 문서입니다. 고액 거래나 법적 분쟁이 예상되는 경우 공인 전자계약 서비스 또는 공증을 이용하시기 바랍니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 하단 AdFit -->
+<div style="background:var(--bg2);border-top:1px solid var(--line);padding:12px 0;text-align:center;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;">
+    <span style="font-size:10px;letter-spacing:2px;color:var(--muted);">AD</span>
+    <ins class="kakao_ad_area" style="display:none;"
+         data-ad-unit="DAN-ydPxujiDV8VxPdCu"
+         data-ad-width="320" data-ad-height="100"></ins>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">MoneyZip</div>
+    <div class="foot-links">
+      <a href="https://moneyzip.co.kr">계산기 홈</a>
+      <a href="https://moneyzip.co.kr/#blog">경제정보</a>
+    </div>
+  </div>
+  <div class="foot-copy">© 2026 MoneyZip · 본 문서는 참고용이며 법적 효력이 없습니다.</div>
+</footer>
+
+<script>
+// ── 탭 전환
+function switchTab(tab) {
+  ['trade','service'].forEach(t => {
+    document.getElementById('pane-'+t).classList.toggle('active', t===tab);
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+  });
+}
+
+// ── 날짜 기본값
+(function(){
+  const today = new Date().toISOString().split('T')[0];
+  ['t-date','s-start-date','s-deadline'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.value = today;
+  });
+})();
+
+// ── 금액 포맷
+function formatNum(n) { return Number(n).toLocaleString('ko-KR'); }
+function numToKorean(n) {
+  if(!n||n==0) return '';
+  const units=['','만','억','조'];
+  let result='', num=parseInt(n);
+  for(let i=3;i>=0;i--){
+    const unit=Math.pow(10000,i);
+    const q=Math.floor(num/unit);
+    if(q>0){ result+=q+units[i]+' '; num-=q*unit; }
+  }
+  return result.trim()+'원';
+}
+
+// ── 유효성 검사
+function validate(fields) {
+  for(const [id,label] of fields){
+    const el=document.getElementById(id);
+    if(!el||!el.value.trim()){ alert(`'${label}' 항목을 입력해주세요.`); el&&el.focus(); return false; }
+  }
+  return true;
+}
+
+// ── 중고거래 생성
+function generateTrade() {
+  if(!validate([
+    ['t-seller-name','판매자 이름'],['t-seller-phone','판매자 연락처'],
+    ['t-buyer-name','구매자 이름'],['t-buyer-phone','구매자 연락처'],
+    ['t-item','물품명'],['t-price','거래 금액'],['t-date','거래 날짜'],
+  ])) return;
+
+  const v = id => document.getElementById(id).value.trim();
+  const price = parseInt(v('t-price'))||0;
+  const dateStr = new Date(v('t-date')).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+  const now = new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+
+  document.getElementById('doc-trade').innerHTML = `
+    <div class="doc-header">
+      <div class="doc-watermark">MONEYZIP · 거래 기록 보존용</div>
+      <div class="doc-title">중고거래 약정서</div>
+      <div class="doc-subtitle">본 문서는 당사자 간 합의 내용을 기록하기 위한 참고용 문서입니다</div>
+    </div>
+    <div class="doc-section">
+      <div class="doc-section-title">당사자 정보</div>
+      <table class="doc-table">
+        <tr><td>판매자</td><td>${v('t-seller-name')} / ${v('t-seller-phone')}${v('t-seller-account')?' / '+v('t-seller-account'):''}</td></tr>
+        <tr><td>구매자</td><td>${v('t-buyer-name')} / ${v('t-buyer-phone')}</td></tr>
+      </table>
+    </div>
+    <div class="doc-section">
+      <div class="doc-section-title">거래 물품</div>
+      <table class="doc-table">
+        <tr><td>물품명</td><td>${v('t-item')}</td></tr>
+        <tr><td>물품 상태</td><td>${v('t-condition')||'별도 협의 없음'}</td></tr>
+        <tr><td>거래 일자</td><td>${dateStr}</td></tr>
+        <tr><td>거래 장소</td><td>${v('t-place')||'별도 명시 없음'}</td></tr>
+      </table>
+    </div>
+    <div class="doc-section">
+      <div class="doc-section-title">거래 금액</div>
+      <div class="doc-amount">금 ${formatNum(price)}원 (한화 ${numToKorean(price)})</div>
+    </div>
+    <div class="doc-section">
+      <div class="doc-section-title">하자·환불 조건</div>
+      <div class="doc-clause">
+        <p>제1조 (하자 신고 기한) 구매자는 거래 완료 후 <strong>${v('t-defect-period')}</strong>에 하자를 판매자에게 통보하여야 한다.</p>
+        <p>제2조 (하자 처리) 기한 내 신고된 하자에 대해 양 당사자는 <strong>${v('t-defect')}</strong> 방식으로 처리하기로 합의한다.</p>
+        <p>제3조 (현황 확인) 구매자는 거래 시점에 물품의 상태를 직접 확인하였으며, 사전 설명된 하자에 대해서는 이의를 제기하지 않는다.</p>
+        ${v('t-extra')?`<p>제4조 (특이사항) ${v('t-extra')}</p>`:''}
+      </div>
+    </div>
+    <div class="doc-footer">
+      <div class="doc-date-line">위 내용에 양 당사자가 합의하였음을 확인합니다. &nbsp;|&nbsp; ${now}</div>
+      <div class="sign-row">
+        <div class="sign-box">
+          <div class="sign-role">판매자 (甲)</div>
+          <div class="sign-name">${v('t-seller-name')}</div>
+          <div class="sign-info">${v('t-seller-phone')}</div>
+          <div class="sign-line">서명 ___________________</div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-role">구매자 (乙)</div>
+          <div class="sign-name">${v('t-buyer-name')}</div>
+          <div class="sign-info">${v('t-buyer-phone')}</div>
+          <div class="sign-line">서명 ___________________</div>
+        </div>
+      </div>
+      <div class="doc-notice-box">
+        본 문서는 Moneyzip(moneyzip.co.kr)에서 무료로 생성된 참고용 기록 문서입니다.<br>
+        법적 효력을 위해서는 공인 전자계약 서비스 또는 공증을 이용하시기 바랍니다.
+      </div>
+    </div>
+  `;
+  const pa = document.getElementById('preview-trade');
+  pa.classList.add('show');
+  pa.style.display='block';
+  setTimeout(()=>pa.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+// ── 용역 생성
+function generateService() {
+  if(!validate([
+    ['s-client-name','의뢰인 이름'],['s-client-phone','의뢰인 연락처'],
+    ['s-worker-name','수행자 이름'],['s-worker-phone','수행자 연락처'],
+    ['s-fee','보수 금액'],['s-detail','용역 상세 내용'],
+    ['s-start-date','계약일'],['s-deadline','납품 기한'],
+  ])) return;
+
+  const v = id => document.getElementById(id).value.trim();
+  const fee = parseInt(v('s-fee'))||0;
+  const startStr = new Date(v('s-start-date')).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+  const deadlineStr = new Date(v('s-deadline')).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+  const now = new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+  const prepay = v('s-prepay');
+  const prepayAmt = prepay==='없음' ? 0 : Math.round(fee*parseInt(prepay)/100);
+  const remaining = fee - prepayAmt;
+
+  document.getElementById('doc-service').innerHTML = `
+    <div class="doc-header">
+      <div class="doc-watermark">MONEYZIP · 거래 기록 보존용</div>
+      <div class="doc-title">용역 거래 확인서</div>
+      <div class="doc-subtitle">본 문서는 당사자 간 합의 내용을 기록하기 위한 참고용 문서입니다</div>
+    </div>
+    <div class="doc-section">
+      <div class="doc-section-title">당사자 정보</div>
+      <table class="doc-table">
+        <tr><td>의뢰인 (甲)</td><td>${v('s-client-name')} / ${v('s-client-phone')}</td></tr>
+        <tr><td>수행자 (乙)</td><td>${v('s-worker-name')} / ${v('s-worker-phone')}${v('s-worker-account')?' / '+v('s-worker-account'):''}</td></tr>
+      </table>
+    </div>
+    <div class="doc-section">
+      <div class="doc-section-title">용역 내용</div>
+      <table class="doc-table">
+        <tr><td>용역 종류</td><td>${v('s-type')}</td></tr>
+        <tr><td>상세 내용</td><td>${v('s-detail').replace(/\n/g,'<br>')}</td></tr>
+        <tr><td>계약일</td><td>${startStr}</td></tr>
+        <tr><td>납품 기한</td><td>${deadlineStr}</td></tr>
+        <tr><td>무료 수정</td><td>${v('s-revision')}</td></tr>
+        <tr><td>저작권</td><td>${v('s-copyright')}</td></tr>
+      </table>
+    </div>
+    <div class="doc-section">
+      <div class="doc-section-title">보수 및 결제</div>
+      <div class="doc-amount">총 보수 금 ${formatNum(fee)}원 (${numToKorean(fee)})</div>
+      <table class="doc-table" style="margin-top:10px;">
+        <tr><td>선금</td><td>${prepay==='없음'?'없음 (전액 후불)':`${prepay} / ${formatNum(prepayAmt)}원 — 계약 시 지급`}</td></tr>
+        <tr><td>잔금</td><td>${prepay==='없음'?`${formatNum(fee)}원 — 납품 완료 후 지급`:`${formatNum(remaining)}원 — 납품 완료 후 지급`}</td></tr>
+      </table>
+    </div>
+    <div class="doc-section">
+      <div class="doc-section-title">계약 조건</div>
+      <div class="doc-clause">
+        <p>제1조 (납품 지연) 수행자가 기한 내 납품하지 못한 경우 <strong>${v('s-delay')}</strong>로 처리한다.</p>
+        <p>제2조 (추가 수정) 무료 수정 범위를 초과하는 수정은 별도 협의하여 추가 보수를 지급한다.</p>
+        <p>제3조 (저작권) 납품 결과물의 저작권은 <strong>${v('s-copyright')}</strong>로 한다.</p>
+        ${v('s-extra')?`<p>제4조 (특이사항) ${v('s-extra')}</p>`:''}
+      </div>
+    </div>
+    <div class="doc-footer">
+      <div class="doc-date-line">위 내용에 양 당사자가 합의하였음을 확인합니다. &nbsp;|&nbsp; ${now}</div>
+      <div class="sign-row">
+        <div class="sign-box">
+          <div class="sign-role">의뢰인 (甲)</div>
+          <div class="sign-name">${v('s-client-name')}</div>
+          <div class="sign-info">${v('s-client-phone')}</div>
+          <div class="sign-line">서명 ___________________</div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-role">수행자 (乙)</div>
+          <div class="sign-name">${v('s-worker-name')}</div>
+          <div class="sign-info">${v('s-worker-phone')}</div>
+          <div class="sign-line">서명 ___________________</div>
+        </div>
+      </div>
+      <div class="doc-notice-box">
+        본 문서는 Moneyzip(moneyzip.co.kr)에서 무료로 생성된 참고용 기록 문서입니다.<br>
+        법적 효력을 위해서는 공인 전자계약 서비스 또는 공증을 이용하시기 바랍니다.
+      </div>
+    </div>
+  `;
+  const pa = document.getElementById('preview-service');
+  pa.classList.add('show');
+  pa.style.display='block';
+  setTimeout(()=>pa.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+// ── 초기화
+function resetForm(tab) {
+  if(tab==='trade'){
+    document.querySelectorAll('#pane-trade input,#pane-trade textarea').forEach(el=>el.value='');
+    document.getElementById('preview-trade').style.display='none';
+  } else {
+    document.querySelectorAll('#pane-service input,#pane-service textarea').forEach(el=>el.value='');
+    document.getElementById('preview-service').style.display='none';
+  }
+  const today=new Date().toISOString().split('T')[0];
+  ['t-date','s-start-date','s-deadline'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value=today;
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
